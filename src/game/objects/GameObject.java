@@ -7,8 +7,8 @@ public abstract class GameObject
 
     protected float x;
     protected float y;
-    protected float width;
-    protected float height;
+    protected float altura;
+    protected float largura;
 
     abstract void update();
 
@@ -25,18 +25,18 @@ public abstract class GameObject
         return y;
     }
 
-    public float getWidth()
+    public float getaltura()
     {
-        return width;
+        return altura;
     }
 
-    public float getHeight()
+    public float getlargura()
     {
-        return height;
+        return largura;
     }
 
     public float getCenterY()
     {
-        return y + height / 2;
+        return y + largura / 2;
     }
 }

@@ -2,6 +2,7 @@ package game;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import com.jogamp.opengl.GL2;
@@ -10,6 +11,10 @@ import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.gl2.GLUT;
+
+import game.objects.Barra;
+import game.objects.GameObject;
+
 import com.jogamp.opengl.util.FPSAnimator;
 
 
@@ -19,6 +24,7 @@ public class MainWindow extends GLCanvas implements GLEventListener, KeyListener
 	private GL2 gl;
 	private GLU glu;
 	private GLUT glut;
+	private Game game;
 	
 	//Para definir as Coordenadas do sistema
 	float xMin, xMax, yMin, yMax, zMin, zMax;
@@ -95,6 +101,14 @@ public class MainWindow extends GLCanvas implements GLEventListener, KeyListener
 		zMin = -10;
 		zMax = 10;
 		
+		ArrayList<GameObject> gameObjects = new ArrayList<>();
+		
+		Barra barra = new Barra(0, 0, 2, 5);
+		
+		
+		gameObjects.add(barra);
+		
+		game = new Game(gameObjects);
 		
 		//Habilita o buffer de profundidade
 		gl.glEnable(GL2.GL_DEPTH_TEST);
@@ -138,12 +152,9 @@ public class MainWindow extends GLCanvas implements GLEventListener, KeyListener
 		//Redefine a matriz atual com a matriz "identidade"
 		gl.glLoadIdentity();
 
-		// criar a cena aqui....		
-//		gl.glColor3f(1,0,0);
-//		barraDireita();
-//		barraEsquerda();
-//		barraCima();
-//		barraBaixo();
+		
+		game.renderAll(gl);
+		
 				
 		gl.glColor3f(1,1,0);		
 		gl.glPushMatrix();
