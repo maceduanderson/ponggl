@@ -1,20 +1,22 @@
 package game.objects;
 
 import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.util.gl2.GLUT;
 
 public abstract class GameObject
 {
 
+	protected float maxX,minX, maxY, minY;
     protected float x;
     protected float y;
     protected float altura;
     protected float largura;
 
-    abstract void update();
+    public abstract void update();
 
-    public abstract void render(GL2 gl2);
-    
-
+    public abstract void render(GL2 gl2, GLUT glut);
+        
     public float getX()
     {
         return x;

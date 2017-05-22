@@ -12,6 +12,7 @@ import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.gl2.GLUT;
 
+import game.objects.Ball;
 import game.objects.Barra;
 import game.objects.GameObject;
 
@@ -101,14 +102,9 @@ public class MainWindow extends GLCanvas implements GLEventListener, KeyListener
 		zMin = -10;
 		zMax = 10;
 		
-		ArrayList<GameObject> gameObjects = new ArrayList<>();
+
 		
-		Barra barra = new Barra(0, 0, 2, 5);
-		
-		
-		gameObjects.add(barra);
-		
-		game = new Game(gameObjects);
+		game = new Game(xMin, xMax, yMin, yMax);
 		
 		//Habilita o buffer de profundidade
 		gl.glEnable(GL2.GL_DEPTH_TEST);
@@ -147,20 +143,21 @@ public class MainWindow extends GLCanvas implements GLEventListener, KeyListener
 
 		// Limpa a janela de visualizacao com a cor de fundo especificada
 		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
-
 		
 		//Redefine a matriz atual com a matriz "identidade"
 		gl.glLoadIdentity();
+		
+		gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
 
 		
-		game.renderAll(gl);
+		game.renderAll(gl, glut);
 		
 				
-		gl.glColor3f(1,1,0);		
-		gl.glPushMatrix();
-			gl.glTranslatef(tx, ty, 0);
-			quadrado();
-		gl.glPopMatrix();
+//		gl.glColor3f(1,1,0);		
+//		gl.glPushMatrix();
+//			gl.glTranslatef(tx, ty, 0);
+//			quadrado();
+//		gl.glPopMatrix();
 						
 		emitirMensagemColisao();
 		
@@ -275,25 +272,7 @@ public class MainWindow extends GLCanvas implements GLEventListener, KeyListener
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		int keyCode = e.getKeyCode();
-		switch(keyCode){
-			case KeyEvent.VK_ESCAPE:
-				System.exit(0);
-				break;
-			case KeyEvent.VK_LEFT:
-				updateLeft();	
-				break;
-			case KeyEvent.VK_UP:
-				updateUp();
-				break;
-			case KeyEvent.VK_DOWN:
-				updateDown();
-				break;
-
-			case KeyEvent.VK_RIGHT:
-				updateRight();
-				break;
-		}	
+		game.keyboardEvent(e);
 	}
 	
 	@Override
