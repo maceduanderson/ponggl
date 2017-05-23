@@ -36,6 +36,8 @@ public class MainWindow extends GLCanvas implements GLEventListener, KeyListener
 	float limiteDir = 6;
 	float limiteCim = 6;
 	float limiteBai = -6;
+	int TONALIZACAO = GL2.GL_SMOOTH;
+	
 
 	// Define constants for the top-level container
 	private static String TITULO = "PongGL";
@@ -99,8 +101,8 @@ public class MainWindow extends GLCanvas implements GLEventListener, KeyListener
 		xMax = 10;
 		yMin = -10;
 		yMax = 10;
-		zMin = -10;
-		zMax = 10;
+		zMin = -1;
+		zMax = 1;
 		
 
 		
@@ -145,7 +147,7 @@ public class MainWindow extends GLCanvas implements GLEventListener, KeyListener
 		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 		
 		//Redefine a matriz atual com a matriz "identidade"
-		gl.glLoadIdentity();
+		gl.glLoadIdentity();		
 		
 		gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
 
@@ -231,6 +233,8 @@ public class MainWindow extends GLCanvas implements GLEventListener, KeyListener
 			
 		}
 	}
+	
+
 	
 	public void emitirMensagemColisao(){
 		if(tx == limiteDir || tx == limiteEsq){

@@ -6,6 +6,7 @@ import com.jogamp.opengl.util.gl2.GLUT;
 
 import game.objects.Ball;
 import game.objects.Barra;
+import game.objects.Fundo;
 import game.objects.GameObject;
 
 public class Game 
@@ -15,6 +16,7 @@ public class Game
 	
 	private Barra barra;
 	private Ball bola;
+	private Fundo fundo;
 	
 	
 	
@@ -26,12 +28,14 @@ public class Game
 	{
 		this.gameObjects = new ArrayList<>();
 		
-		this.barra = new Barra(0, -8, minX , maxX);
-		this.bola = new Ball(0, 0, minX,maxX, minY, maxY, 1);
 		
+		this.bola = new Ball(0, 0, minX,maxX, minY, maxY, 1);
+		this.barra = new Barra(0, -8, minX , maxX, this.bola);
+		this.fundo  =new Fundo(0, 0, minX, maxX, minY, maxY);
 		
 		this.gameObjects.add(barra);
 		this.gameObjects.add(bola);
+		this.gameObjects.add(fundo);
 	}
 	
 	public void renderAll(GL2 gl2, GLUT glut)
@@ -59,5 +63,7 @@ public class Game
 				break;
 		}	
 	}
+	
+
 
 }
