@@ -101,9 +101,11 @@ public class MainWindow extends GLCanvas implements GLEventListener, KeyListener
 		xMax = 10;
 		yMin = -10;
 		yMax = 10;
-		zMin = -1;
-		zMax = 1;
+		zMin = -10;
+		zMax = 10;
 		
+		gl.glEnable(GL2.GL_COLOR_MATERIAL);
+		gl.glColorMaterial(GL2.GL_FRONT_AND_BACK, GL2.GL_AMBIENT_AND_DIFFUSE);
 
 		
 		game = new Game(xMin, xMax, yMin, yMax);

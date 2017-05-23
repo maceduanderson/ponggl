@@ -54,7 +54,6 @@ public class Barra extends GameObject
         	gl2.glRotatef(0, 0, 0, 0);
         	gl2.glColor3f(1.0f, 1.0f, 1.0f);
         	gl2.glBegin(GL2.GL_QUADS);            
-        		ligaLuz(gl2);
             	gl2.glVertex2f(0, 0);
             	gl2.glVertex2f(0, this.altura);
             	gl2.glVertex2f(this.largura, this.altura);

@@ -24,11 +24,10 @@ public class Fundo extends GameObject
 
 	@Override
 	public void render(GL2 gl2, GLUT glut) {
-    	gl2.glPushMatrix();
-    		
+    	gl2.glPushMatrix();    		
 			gl2.glScalef(maxX*2, maxY*2, 0.0f);
-			gl2.glColor3f(0, 0, 0);
-			gl2.glTranslatef(0, 0, -0.5f);
+			gl2.glColor3f(0.2f, 0, 0);
+			gl2.glTranslatef(0, 0, -5.0f);
 			glut.glutSolidCube(1);
 		gl2.glPopMatrix();
 		
