@@ -7,8 +7,8 @@ import com.jogamp.opengl.util.gl2.GLUT;
 public class Ball extends GameObject
 {
 
-	protected static final float MAXINCX = 0.3f;
-	protected static final float MAXINCY = 0.4f;
+	protected  float MAXINCX = 0.3f;
+	protected  float MAXINCY = 0.4f;
 	protected static final float MAXVAR = 0.09f;
 	int raio;
 	float incrementoX;
@@ -90,6 +90,18 @@ public class Ball extends GameObject
     	gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, luzAmbiente, 0);
     	gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_SPECULAR, luzEspecular, 0);
     	gl2.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, posicaoLuz, 0);
+    }
+    
+    
+    public int getRaio()
+    {
+    	return raio;
+    }
+    
+    public void duplicaVelocidade()
+    {
+    	MAXINCX = 0.6f;
+    	MAXINCY = 0.8f;
     }
 
 

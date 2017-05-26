@@ -12,11 +12,15 @@ public abstract class GameObject
     protected float y;
     protected float altura;
     protected float largura;
+    
 
     public abstract void update();
 
     public abstract void render(GL2 gl2, GLUT glut);
-        
+    
+    
+ 
+    
     public float getX()
     {
         return x;

@@ -27,7 +27,7 @@ public class Fundo extends GameObject
     	gl2.glPushMatrix();    		
 			gl2.glScalef(maxX*2, maxY*2, 0.0f);
 			gl2.glColor3f(0.2f, 0, 0);
-			gl2.glTranslatef(0, 0, -5.0f);
+			gl2.glTranslatef(0, 0, 10.0f);
 			glut.glutSolidCube(1);
 		gl2.glPopMatrix();
 		
