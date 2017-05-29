@@ -34,8 +34,7 @@ public class MessageBox extends GameObject
 	{
 		float yPos = this.y;
 		if(onOff)
-		{
-			
+		{			
 			for (String frase : frases) 
 			{
 				

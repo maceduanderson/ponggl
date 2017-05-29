@@ -2,7 +2,10 @@ package game.objects;
 
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.glu.GLUquadric;
 import com.jogamp.opengl.util.gl2.GLUT;
+
+import game.Textura;
 
 public class Ball extends GameObject
 {
@@ -14,6 +17,8 @@ public class Ball extends GameObject
 	float incrementoX;
 	float incrementoY;
 	float variacao;
+	Textura textura;
+	private float angle = 0;
 	
 	public Ball(float x, float y, float minX, float maxX, float minY, float maxY, int raio)
 	{
@@ -27,12 +32,15 @@ public class Ball extends GameObject
 		this.incrementoX = MAXINCX;
 		this.incrementoY = MAXINCY;
 		this.variacao = MAXVAR;
+		this.textura = new Textura(1);
 		
 	}
 	
 	@Override
 	public void update() 
-	{		
+	{	
+		
+		if(this.angle > 360.0f) this.angle = 0;	
 		if( (x+raio) > maxX) reverteX();
 		if( (x+raio) < minX) reverteX();
 		
@@ -57,13 +65,19 @@ public class Ball extends GameObject
 	@Override
 	public void render(GL2 gl2, GLUT glut) 
 	{	
+		
+		aplicarTextura(gl2, glut);
+		
 		gl2.glPushMatrix();
 			ligaLuz(gl2);
 			iluminacaoEspecular(gl2, glut);
 			gl2.glTranslatef(this.x, this.y, 0);
 			gl2.glColor3f(1.0f, 1.0f, 0.8f);   //branca
-			glut.glutSolidSphere(1, 15, 15);
+			//glut.glutSolidSphere(1, 15, 15);
+			gl2.glRotatef(this.angle += 1.5f, 0, 1.0f, 0);
+			solidSphere(1, 15, 15);
 			//gl2.glDisable(GL2.GL_LIGHT0);
+			textura.desabilitarTexturaAutomatica(gl2);
 			
 		gl2.glPopMatrix();
 	}
@@ -104,5 +118,37 @@ public class Ball extends GameObject
     	MAXINCY = 0.8f;
     }
 
+    void aplicarTextura(GL2 gl2, GLUT glut)
+    {
+        int filtro = GL2.GL_LINEAR;
+        int wrap = GL2.GL_REPEAT;
+        int modo = GL2.GL_MODULATE;
+    	gl2.glMatrixMode(GL2.GL_TEXTURE);
+    	gl2.glLoadIdentity();
+    	gl2.glRotatef(180, 1, 0, 0);
+    	gl2.glMatrixMode(GL2.GL_MODELVIEW);
+		
+		// Desenha um cubo no qual a textura eh aplicada
+		//habilita o uso de textura
+		textura.habilitarTextura(gl2);
+		
+		//habilita os filtros
+		textura.setFiltro(filtro);
+		textura.setModo(GL2.GL_MODULATE);
+		textura.setWrap(wrap);
+		textura.gerarTextura(gl2, "texturas/mapa.jpg", 0);
+    }
+    
+    private void solidSphere(int raio, int stacks, int columns) 
+    {   
+        GLU glu = new GLU();   
+
+        GLUquadric quadObj = glu.gluNewQuadric();   
+        glu.gluQuadricDrawStyle(quadObj, GLU.GLU_FILL);   
+        glu.gluQuadricNormals(quadObj, GLU.GLU_SMOOTH);   
+        glu.gluQuadricTexture(quadObj, true); //Habilita textura  
+        glu.gluQuadricNormals(quadObj, GLU.GLU_SMOOTH);
+        glu.gluSphere(quadObj, raio, stacks, columns);   
+    }
 
 }

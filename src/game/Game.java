@@ -1,7 +1,11 @@
 package game;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;import com.jogamp.opengl.GL2;
+import java.util.ArrayList;
+
+import javax.swing.plaf.basic.BasicTextAreaUI;
+
+import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.util.gl2.GLUT;
 
 import game.objects.Arena;
@@ -22,6 +26,8 @@ public class Game
 	private int fase;
 	private  float maxX,minX, maxY, minY;
 	
+	
+	private Textura textura;
 	private MessageBox message;
 	private Barra barra;
 	private Ball bola;
@@ -67,7 +73,7 @@ public class Game
 		
 		this.bola = new Ball(0, 0, minX,maxX, minY, maxY, 1);
 		this.barra = new Barra(0, -8, minX , maxX, this.bola);
-		this.barraTreta = new BarraDaTreta(0, 8, minX, maxX, bola);
+		this.barraTreta = new BarraDaTreta(0, 5, minX, maxX, bola);
 		this.fundo  =new Fundo(0, 0, minX, maxX, minY, maxY);
 		this.arena = new Arena(minX, maxX, minY, maxY, this.bola);
 		this.message = new MessageBox(minX, maxX, minY, maxY);
@@ -75,10 +81,11 @@ public class Game
 		
 		this.gameObjects.add(barra);
 		this.gameObjects.add(bola);
+		this.gameObjects.add(barraTreta);
 		this.gameObjects.add(fundo);
 		this.gameObjects.add(arena);
 		this.gameObjects.add(message);
-		this.gameObjects.add(barraTreta);
+		
 	}
 	
 	void reset()
@@ -97,10 +104,11 @@ public class Game
 		
 		this.gameObjects.add(barra);
 		this.gameObjects.add(bola);
+		this.gameObjects.add(barraTreta);
 		this.gameObjects.add(fundo);
 		this.gameObjects.add(arena);
 		this.gameObjects.add(message);
-		this.gameObjects.add(barraTreta);
+		
 	}
 	
 	public void renderAll(GL2 gl2, GLUT glut)
@@ -115,7 +123,7 @@ public class Game
 					gl2.glRotatef(this.angle += 0.1f, 0, 1.0f, 0);
 					if(this.angle > 360.0f) this.angle = 0;					
 					message.setFrase(INITSTRING);
-					message.setOnOff(true);
+					message.setOnOff(true);					
 					break;
 				case STARTED:
 					gl2.glRotatef(this.angle, 0, 0, 0);					
@@ -131,10 +139,11 @@ public class Game
 					message.setOnOff(true);
 					break;
 				case STOP:
-					STOPSTRING = new String[]{"VOCE PERDEU!", "1 : RETENTAR"};
 					reset();
 					vidas = 5;
 					pontos = 0;
+					STOPSTRING = new String[]{"VOCE PERDEU!", "1 : RETENTAR"};
+					message.setFrase(STOPSTRING);
 					message.setOnOff(true);
 					break;
 				case RESET:

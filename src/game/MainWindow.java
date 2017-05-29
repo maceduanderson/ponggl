@@ -46,10 +46,11 @@ public class MainWindow extends GLCanvas implements GLEventListener, KeyListener
 	private static final int FPS = 60; // define frames per second para a animacao
 
 	public static void main(String[] args) {
+		
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				// Cria a janela de renderizacao OpenGL
+				// Cria a janela de renderizacao OpenGL				
 				GLCanvas canvas = new MainWindow();
 				canvas.setPreferredSize(new Dimension(CANVAS_LARGURA, CANVAS_ALTURA));
 				final FPSAnimator animator = new FPSAnimator(canvas, FPS, true);
@@ -72,7 +73,7 @@ public class MainWindow extends GLCanvas implements GLEventListener, KeyListener
 				frame.setTitle(TITULO);
 				frame.pack();
 				frame.setLocationRelativeTo(null); //Center frame
-				frame.setVisible(true);
+				frame.setVisible(true);		
 				animator.start(); // inicia o loop de animacao
 			}
 		});
@@ -155,118 +156,11 @@ public class MainWindow extends GLCanvas implements GLEventListener, KeyListener
 
 		
 		game.renderAll(gl, glut);
-		
-				
-//		gl.glColor3f(1,1,0);		
-//		gl.glPushMatrix();
-//			gl.glTranslatef(tx, ty, 0);
-//			quadrado();
-//		gl.glPopMatrix();
-						
-		emitirMensagemColisao();
-		
-		// Executa os comandos OpenGL
+					
 		gl.glFlush();
 	}
 	
-	public void mensagem(String frase)
-	{         
-		gl.glColor3f(1,1,1);
-		gl.glRasterPos2f(5f, 9.0f);		      
-		glut.glutBitmapString(GLUT.BITMAP_8_BY_13, frase);		
-	}  
-	
-	public void barraDireita(){
-		gl.glBegin(GL2.GL_QUADS);
-			gl.glVertex2f(9,-5);
-			gl.glVertex2f(8,-5);
-			gl.glVertex2f(8,5);
-			gl.glVertex2f(9,5);
-		gl.glEnd();		
-	}
-	
-	public void barraCima(){
-		gl.glBegin(GL2.GL_QUADS);
-			gl.glVertex2f(-5, 9);
-			gl.glVertex2f(-5, 8);
-			gl.glVertex2f(5, 8);
-			gl.glVertex2f(5, 9);
-		gl.glEnd();		
-	}
-	
-	public void barraBaixo(){
-		gl.glBegin(GL2.GL_QUADS);
-			gl.glVertex2f(-5,-9);
-			gl.glVertex2f(-5,-8);
-			gl.glVertex2f(5, -8);
-			gl.glVertex2f(5,-9);
-		gl.glEnd();		
-	}
-	
-	public void barraEsquerda(){
-		gl.glBegin(GL2.GL_QUADS);
-			gl.glVertex2f(-9,-5);
-			gl.glVertex2f(-8,-5);
-			gl.glVertex2f(-8,5);
-			gl.glVertex2f(-9,5);			
-		gl.glEnd();		
-	}
 
-	public void quadrado(){
-		gl.glBegin(GL2.GL_QUADS);
-			gl.glVertex2f(-2,-2);
-			gl.glVertex2f(2,-2);
-			gl.glVertex2f(2,2);
-			gl.glVertex2f(-2,2);
-		gl.glEnd();		
-	}
-	
-	public void desenhaGrade(){
-		int i;
-		
-		for(i=-10; i < 10; i++){
-			gl.glBegin(GL2.GL_LINES);
-				gl.glVertex2f(i, -10);
-				gl.glVertex2f(i, 10);
-				
-				gl.glVertex2f(-10, i);
-				gl.glVertex2f(10, i);
-			gl.glEnd();
-			
-		}
-	}
-	
-
-	
-	public void emitirMensagemColisao(){
-		if(tx == limiteDir || tx == limiteEsq){
-			mensagem("Colidiu X !!");
-		}
-		if(ty == limiteCim || ty == limiteBai)
-		{
-			mensagem("Colidiu Y !!");
-		}
-	}
-	
-	
-	public void updateLeft(){
-		
-		if(tx > limiteEsq)					
-			tx--;
-	}
-	
-	public void updateRight(){
-		if(tx < limiteDir)
-			tx += 1;
-	}
-	public void updateUp()
-	{
-		if(ty < limiteCim) ty += 1;
-	}
-	public void updateDown()
-	{
-		if(ty > limiteBai) ty --;
-	}
 
 	/**
 	 * Chamado quando o contexto OpenGL eh destruido
